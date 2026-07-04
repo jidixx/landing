@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Жар-Птица — Онлайн-курс мастера маникюра</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FBF5F1;
+    --bg-warm: #F6ECE4;
+    --card: #FFFDFB;
+    --rose: #D9A6A0;
+    --rose-soft: #E8C9C2;
+    --rose-deep: #BD7C71;
+    --brown: #4A382F;
+    --brown-soft: #8A7266;
+    --gold: #AD8A56;
+    --line: rgba(74,56,47,0.12);
+    --shadow: 0 20px 50px -25px rgba(74,56,47,0.25);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--brown);
+    font-family:'Jost', sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,h4{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    color:var(--brown);
+    letter-spacing:-0.01em;
+  }
+
+  .eyebrow{
+    font-family:'Jost', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.22em;
+    font-size:0.72rem;
+    font-weight:600;
+    color:var(--rose-deep);
+  }
+
+  a{color:inherit; text-decoration:none;}
+
+  img{max-width:100%; display:block;}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  section{position:relative;}
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(32px);
+    transition:opacity .9s cubic-bezier(.22,.61,.36,1), transform .9s cubic-bezier(.22,.61,.36,1);
+    transition-delay:var(--delay, 0s);
+  }
+  .reveal.is-visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+  }
+
+  /* ---------- Swatch signature element ---------- */
+  .swatch{
+    display:inline-block;
+    width:14px;height:14px;
+    border-radius:4px 4px 40% 40%;
+    box-shadow: inset 0 -2px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.08);
+  }
+  .swatch-strip{
+    display:flex;
+    gap:10px;
+    align-items:center;
+  }
+
+  .divider-strip{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    padding:56px 0;
+  }
+  .divider-strip .swatch{width:20px;height:20px;border-radius:6px 6px 50% 50%;}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(251,245,241,0.85);
+    backdrop-filter: blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 32px;
+    max-width:1180px; margin:0 auto;
+  }
+  .logo{
+    font-family:'Fraunces', serif;
+    font-size:1.35rem;
+    font-weight:600;
+    letter-spacing:0.01em;
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo-mark{
+    width:30px;height:30px;
+    border-radius:50% 50% 50% 6%;
+    background:linear-gradient(135deg, var(--rose), var(--gold));
+  }
+  .nav-links{
+    display:flex; gap:36px;
+    font-size:0.92rem;
+    color:var(--brown-soft);
+  }
+  .nav-links a:hover{color:var(--rose-deep);}
+  .nav-cta{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--brown);
+    color:#fff;
+    padding:11px 22px;
+    border-radius:100px;
+    font-size:0.88rem;
+    font-weight:500;
+    transition:transform .25s ease, background .25s ease;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--rose-deep); transform:translateY(-1px);}
+
+  @media (max-width:860px){
+    .nav-links{display:none;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:110px 0 90px;
+    overflow:hidden;
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:64px;
+    align-items:center;
+  }
+  .hero-eyebrow{
+    display:flex; align-items:center; gap:12px;
+    margin-bottom:26px;
+  }
+  .hero-eyebrow .rating{
+    display:flex; align-items:center; gap:6px;
+    font-size:0.82rem;
+    color:var(--brown-soft);
+    padding:6px 14px 6px 10px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:100px;
+  }
+  .hero-eyebrow .rating b{color:var(--brown); font-weight:600;}
+  .stars{color:var(--gold); font-size:0.85rem; letter-spacing:1px;}
+
+  h1.hero-title{
+    font-size:clamp(2.4rem, 4.4vw, 3.6rem);
+    line-height:1.08;
+    margin-bottom:26px;
+  }
+  h1.hero-title em{
+    font-style:italic;
+    color:var(--rose-deep);
+    font-weight:500;
+  }
+
+  .hero-sub{
+    font-size:1.12rem;
+    color:var(--brown-soft);
+    max-width:520px;
+    margin-bottom:38px;
+  }
+
+  .hero-actions{
+    display:flex; align-items:center; gap:22px; flex-wrap:wrap;
+  }
+
+  .btn-primary{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--rose-deep);
+    color:#fff;
+    padding:17px 32px;
+    border-radius:100px;
+    font-size:1rem;
+    font-weight:500;
+    box-shadow:0 16px 30px -14px rgba(189,124,113,0.65);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 20px 36px -14px rgba(189,124,113,0.8);}
+
+  .hero-note{
+    font-size:0.86rem;
+    color:var(--brown-soft);
+    display:flex; align-items:center; gap:10px;
+  }
+  .hero-note .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);}
+
+  .hero-visual{
+    position:relative;
+    aspect-ratio:1/1.05;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .hero-card{
+    position:relative;
+    width:100%; height:100%;
+    background:linear-gradient(155deg, var(--rose-soft) 0%, var(--bg-warm) 55%, var(--card) 100%);
+    border-radius:34px 34px 34px 100px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    display:flex; align-items:flex-end;
+  }
+  .palette-row{
+    display:flex;
+    gap:16px;
+    padding:34px;
+    width:100%;
+  }
+  .polish{
+    flex:1;
+    aspect-ratio:1/1.7;
+    border-radius:14px 14px 40% 40%;
+    position:relative;
+    box-shadow:0 14px 22px -12px rgba(0,0,0,0.28), inset 0 -6px 10px rgba(0,0,0,0.08);
+  }
+  .polish::before{
+    content:'';
+    position:absolute; top:-10px; left:50%; transform:translateX(-50%);
+    width:34%; height:14px;
+    background:#4A382F;
+    border-radius:4px 4px 0 0;
+  }
+  .polish:nth-child(1){background:linear-gradient(160deg,#E8C9C2,#D9A6A0); margin-top:70px;}
+  .polish:nth-child(2){background:linear-gradient(160deg,#EBD9C4,#D8B48C); margin-top:20px;}
+  .polish:nth-child(3){background:linear-gradient(160deg,#BD7C71,#A65D52); margin-top:40px;}
+  .polish:nth-child(4){background:linear-gradient(160deg,#F3E4DA,#E3C6B9); margin-top:0;}
+
+  .floating-badge{
+    position:absolute; top:28px; left:-18px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:16px 20px;
+    box-shadow:var(--shadow);
+    max-width:210px;
+  }
+  .floating-badge .num{
+    font-family:'Fraunces', serif;
+    font-size:1.7rem;
+    color:var(--rose-deep);
+    line-height:1;
+  }
+  .floating-badge .txt{
+    font-size:0.78rem;
+    color:var(--brown-soft);
+    margin-top:4px;
+  }
+
+  @media (max-width:900px){
+    .hero .wrap{grid-template-columns:1fr; gap:56px;}
+    .hero{padding:70px 0 60px;}
+    .floating-badge{left:10px; top:-20px;}
+  }
+
+  /* ---------- Section heading pattern ---------- */
+  .section-head{
+    max-width:640px;
+    margin-bottom:56px;
+  }
+  .section-head .eyebrow{display:block; margin-bottom:16px;}
+  .section-head h2{
+    font-size:clamp(1.9rem, 3vw, 2.6rem);
+    margin-bottom:16px;
+  }
+  .section-head p{
+    color:var(--brown-soft);
+    font-size:1.03rem;
+  }
+  .center{text-align:center; margin-left:auto; margin-right:auto;}
+
+  /* ---------- For whom ---------- */
+  .for-whom{padding:20px 0 100px;}
+  .whom-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px;
+  }
+  .whom-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:26px;
+    padding:44px 38px;
+    box-shadow:0 0 0 rgba(74,56,47,0);
+    transition:transform .6s cubic-bezier(.22,.61,.36,1), box-shadow .6s cubic-bezier(.22,.61,.36,1);
+    will-change:transform;
+  }
+  .whom-card:hover{transform:translateY(-6px); box-shadow:var(--shadow);}
+  .whom-icon{
+    width:52px;height:52px;
+    border-radius:50% 50% 50% 10%;
+    background:var(--bg-warm);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:24px;
+  }
+  .whom-card h3{font-size:1.35rem; margin-bottom:14px;}
+  .whom-card ul{list-style:none; margin-top:20px;}
+  .whom-card li{
+    display:flex; gap:12px;
+    font-size:0.95rem;
+    color:var(--brown-soft);
+    padding:9px 0;
+    border-top:1px solid var(--line);
+  }
+  .whom-card li:first-child{border-top:none;}
+  .whom-card li .swatch{margin-top:5px; flex-shrink:0;}
+
+  @media (max-width:800px){
+    .whom-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- Program / modules ---------- */
+  .program{
+    padding:20px 0 110px;
+    background:var(--bg-warm);
+    border-radius:48px;
+  }
+  .program .wrap{padding-top:90px; padding-bottom:20px;}
+
+  .modules{
+    display:flex; flex-direction:column;
+    gap:0;
+  }
+  .module{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:36px;
+    padding:38px 0;
+    border-top:1px solid var(--line);
+  }
+  .module:last-child{border-bottom:1px solid var(--line);}
+
+  .module-nail{
+    width:74px; height:100px;
+    border-radius:38px 38px 14px 14px;
+    display:flex; align-items:flex-end; justify-content:center;
+    padding-bottom:14px;
+    font-family:'Fraunces', serif;
+    font-size:1.3rem;
+    color:#fff;
+    box-shadow:0 14px 24px -14px rgba(74,56,47,0.4);
+  }
+  .module:nth-child(1) .module-nail{background:linear-gradient(160deg,#E8C9C2,#D9A6A0);}
+  .module:nth-child(2) .module-nail{background:linear-gradient(160deg,#D8B48C,#C79965);}
+  .module:nth-child(3) .module-nail{background:linear-gradient(160deg,#BD7C71,#A65D52);}
+  .module:nth-child(4) .module-nail{background:linear-gradient(160deg,#8A7266,#6C574C);}
+
+  .module-body h3{
+    font-size:1.4rem;
+    margin-bottom:10px;
+  }
+  .module-body p{
+    color:var(--brown-soft);
+    max-width:640px;
+    margin-bottom:18px;
+  }
+  .module-tags{
+    display:flex; flex-wrap:wrap; gap:10px;
+  }
+  .module-tags span{
+    font-size:0.8rem;
+    color:var(--brown);
+    background:var(--card);
+    border:1px solid var(--line);
+    padding:7px 14px;
+    border-radius:100px;
+  }
+
+  @media (max-width:700px){
+    .module{grid-template-columns:60px 1fr; gap:20px;}
+    .module-nail{width:48px; height:66px; border-radius:24px 24px 8px 8px; font-size:1rem;}
+  }
+
+  /* ---------- Author ---------- */
+  .author{padding:110px 0;}
+  .author .wrap{
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    gap:64px;
+    align-items:center;
+  }
+  .author-visual{
+    position:relative;
+    aspect-ratio:0.85/1;
+    border-radius:32px 32px 100px 32px;
+    background:linear-gradient(160deg, var(--rose-soft), var(--bg-warm));
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:var(--shadow);
+  }
+  .monogram{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:6.5rem;
+    color:var(--card);
+    text-shadow:0 10px 24px rgba(74,56,47,0.25);
+  }
+  .author-rating{
+    position:absolute; bottom:-22px; right:-14px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:18px 22px;
+    box-shadow:var(--shadow);
+    text-align:center;
+  }
+  .author-rating .stars{font-size:1rem;}
+  .author-rating .num{font-family:'Fraunces', serif; font-size:1.6rem;}
+  .author-rating .lbl{font-size:0.75rem; color:var(--brown-soft);}
+
+  .author-content .eyebrow{margin-bottom:16px;}
+  .author-content h2{font-size:clamp(1.8rem, 2.8vw, 2.3rem); margin-bottom:20px;}
+  .author-content p{color:var(--brown-soft); margin-bottom:18px; font-size:1.02rem;}
+  .author-stats{
+    display:flex; gap:36px;
+    margin-top:32px;
+    flex-wrap:wrap;
+  }
+  .author-stats div{border-left:2px solid var(--rose); padding-left:16px;}
+  .author-stats b{
+    display:block;
+    font-family:'Fraunces', serif;
+    font-size:1.7rem;
+    color:var(--brown);
+  }
+  .author-stats span{font-size:0.85rem; color:var(--brown-soft);}
+
+  @media (max-width:900px){
+    .author .wrap{grid-template-columns:1fr;}
+    .author-visual{max-width:340px; margin:0 auto;}
+  }
+
+  /* ---------- What you get ---------- */
+  .get{padding:20px 0 110px;}
+  .get-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+  }
+  .get-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:24px;
+    padding:38px 32px;
+  }
+  .get-icon{
+    width:48px;height:48px;
+    border-radius:14px;
+    background:var(--bg-warm);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:22px;
+    color:var(--rose-deep);
+  }
+  .get-card h3{font-size:1.2rem; margin-bottom:10px;}
+  .get-card p{color:var(--brown-soft); font-size:0.94rem;}
+
+  @media (max-width:860px){
+    .get-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- Final CTA ---------- */
+  .final-cta{
+    padding:100px 0 120px;
+  }
+  .cta-box{
+    background:linear-gradient(150deg, var(--brown) 0%, #5c4739 100%);
+    border-radius:40px;
+    padding:80px 60px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .cta-box::before{
+    content:'';
+    position:absolute; inset:0;
+    background:radial-gradient(circle at 85% 20%, rgba(217,166,160,0.35), transparent 55%);
+  }
+  .cta-box .eyebrow{color:var(--rose-soft); position:relative;}
+  .cta-box h2{
+    color:#FBF5F1;
+    font-size:clamp(1.9rem, 3.4vw, 2.7rem);
+    margin:18px 0 20px;
+    position:relative;
+    max-width:640px;
+    margin-left:auto; margin-right:auto;
+  }
+  .cta-box p{
+    color:rgba(251,245,241,0.72);
+    max-width:520px;
+    margin:0 auto 40px;
+    position:relative;
+    font-size:1.02rem;
+  }
+  .cta-actions{
+    display:flex; gap:18px; justify-content:center; flex-wrap:wrap;
+    position:relative;
+  }
+  .btn-whatsapp{
+    display:inline-flex; align-items:center; gap:10px;
+    background:#fff;
+    color:var(--brown);
+    padding:18px 34px;
+    border-radius:100px;
+    font-weight:600;
+    font-size:1.02rem;
+    box-shadow:0 18px 34px -14px rgba(0,0,0,0.4);
+    transition:transform .25s ease;
+  }
+  .btn-whatsapp:hover{transform:translateY(-2px);}
+  .btn-ghost{
+    display:inline-flex; align-items:center; gap:10px;
+    border:1px solid rgba(251,245,241,0.35);
+    color:#FBF5F1;
+    padding:18px 30px;
+    border-radius:100px;
+    font-size:1rem;
+    transition:background .25s ease;
+  }
+  .btn-ghost:hover{background:rgba(251,245,241,0.1);}
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:50px 0 40px;
+    border-top:1px solid var(--line);
+  }
+  .footer-wrap{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:20px;
+  }
+  .footer-wrap .logo{font-size:1.1rem;}
+  .footer-links{
+    display:flex; gap:28px;
+    font-size:0.88rem;
+    color:var(--brown-soft);
+  }
+  .footer-copy{
+    font-size:0.8rem;
+    color:var(--brown-soft);
+    margin-top:26px;
+    opacity:0.8;
+  }
+
+  /* ---------- Small phones ---------- */
+  @media (max-width:520px){
+    .wrap{padding:0 20px;}
+
+    .nav{padding:16px 20px;}
+    .logo{font-size:1.15rem;}
+    .logo-mark{width:26px; height:26px;}
+    .nav-cta{padding:9px 16px; font-size:0.8rem;}
+
+    .hero{padding:48px 0 36px;}
+    h1.hero-title{font-size:2.1rem;}
+    .hero-sub{font-size:1rem;}
+    .hero-actions{flex-direction:column; align-items:flex-start; gap:18px;}
+    .btn-primary{width:100%; justify-content:center; padding:16px 24px;}
+    .floating-badge{max-width:150px; padding:12px 14px; left:6px; top:-16px;}
+    .floating-badge .num{font-size:1.4rem;}
+    .floating-badge .txt{font-size:0.72rem;}
+    .palette-row{padding:20px; gap:10px;}
+
+    .divider-strip{padding:36px 0; gap:8px;}
+    .divider-strip .swatch{width:14px; height:14px;}
+
+    .section-head{margin-bottom:36px;}
+    .section-head h2{font-size:1.7rem;}
+
+    .whom-card{padding:30px 22px;}
+    .program{border-radius:28px;}
+    .program .wrap{padding-top:56px;}
+    .module{grid-template-columns:1fr; gap:16px; padding:28px 0;}
+    .module-nail{width:44px; height:60px; border-radius:22px 22px 8px 8px; font-size:0.95rem;}
+
+    .author{padding:64px 0;}
+    .author-visual{max-width:220px;}
+    .monogram{font-size:4.2rem;}
+    .author-rating{padding:14px 16px; bottom:-16px; right:-8px;}
+    .author-stats{gap:24px;}
+
+    .get-card{padding:28px 22px;}
+
+    .final-cta{padding:60px 0 70px;}
+    .cta-box{padding:48px 24px; border-radius:28px;}
+    .cta-actions{flex-direction:column; width:100%;}
+    .btn-whatsapp, .btn-ghost{width:100%; justify-content:center;}
+
+    .footer-wrap{flex-direction:column; align-items:flex-start; gap:16px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; scroll-behavior:auto !important;}
+  }
+
+  ::selection{background:var(--rose-soft); color:var(--brown);}
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--rose-deep);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo"><span class="logo-mark"></span> Жар-Птица</div>
+    <nav class="nav-links">
+      <a href="#program">Программа</a>
+      <a href="#author">Об авторе</a>
+      <a href="#get">Что вы получите</a>
+    </nav>
+    <a class="nav-cta" href="#cta">Записаться</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="hero-eyebrow">
+          <span class="eyebrow">Онлайн-курс маникюра</span>
+        </div>
+        <h1 class="hero-title">Освойте профессию мастера маникюра <em>онлайн</em> из любой точки Казахстана</h1>
+        <p class="hero-sub">Пошаговый авторский онлайн-курс от студии и учебного центра «Жар-Птица»: от постановки руки до первых клиентов и стабильного заработка.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#program">Смотреть программу курса →</a>
+          <div class="hero-note"><span class="dot"></span> Старт через 5 дней · места ограничены</div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="floating-badge">
+            <div class="num">4.8</div>
+            <div class="txt">рейтинг студии «Жар-Птица» в Усть-Каменогорске</div>
+          </div>
+          <div class="palette-row">
+            <div class="polish"></div>
+            <div class="polish"></div>
+            <div class="polish"></div>
+            <div class="polish"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="divider-strip" aria-hidden="true">
+      <span class="swatch" style="background:#E8C9C2"></span>
+      <span class="swatch" style="background:#D8B48C"></span>
+      <span class="swatch" style="background:#BD7C71"></span>
+      <span class="swatch" style="background:#8A7266"></span>
+      <span class="swatch" style="background:#D9A6A0"></span>
+    </div>
+  </div>
+
+  <!-- FOR WHOM -->
+  <section class="for-whom">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Для кого курс</span>
+        <h2>Подойдёт и для первого шага, и для роста</h2>
+        <p>Мы собрали программу так, чтобы она была полезна независимо от того, держали вы пилку в руках или работаете руками уже не первый год.</p>
+      </div>
+
+      <div class="whom-grid">
+        <div class="whom-card reveal">
+          <div class="whom-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#BD7C71" stroke-width="1.6"><path d="M12 3v18M5 8l7-5 7 5M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8"/></svg>
+          </div>
+          <h3>Для новичков</h3>
+          <p>Хотите прибыльное хобби или полностью сменить сферу деятельности — начнём с нуля и доведём до уверенной работы с клиентом.</p>
+          <ul>
+            <li><span class="swatch" style="background:#E8C9C2"></span> Никогда не делали маникюр самостоятельно</li>
+            <li><span class="swatch" style="background:#D8B48C"></span> Хотите новую профессию без переезда и очного обучения</li>
+            <li><span class="swatch" style="background:#BD7C71"></span> Мечтаете о собственном кабинете или подработке</li>
+          </ul>
+        </div>
+
+        <div class="whom-card reveal" style="--delay:0.12s">
+          <div class="whom-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#BD7C71" stroke-width="1.6"><path d="M4 20l4-1 10-10-3-3L5 16l-1 4z"/><path d="M13 6l3 3"/></svg>
+          </div>
+          <h3>Для практикующих мастеров</h3>
+          <p>Уже работаете с клиентами, но хотите поднять чек и скорость — разберём тонкости, которые отличают мастера на 8 000 ₸ от мастера на 20 000 ₸.</p>
+          <ul>
+            <li><span class="swatch" style="background:#D9A6A0"></span> Хотите сократить время процедуры без потери качества</li>
+            <li><span class="swatch" style="background:#8A7266"></span> Готовы поднять чек и работать с более требовательными клиентами</li>
+            <li><span class="swatch" style="background:#C79965"></span> Ищете новые техники покрытия и выравнивания</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAM -->
+  <section class="program" id="program">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Программа обучения</span>
+        <h2>Четыре модуля — от стерилизации до первых клиентов</h2>
+        <p>Каждый модуль — это видеоуроки, практические задания и обратная связь от преподавателей студии «Жар-Птица».</p>
+      </div>
+
+      <div class="modules">
+        <div class="module reveal">
+          <div class="module-nail">01</div>
+          <div class="module-body">
+            <h3>Теория и стерилизация</h3>
+            <p>Строение ногтевой пластины, санитарные нормы, дезинфекция и стерилизация инструментов — фундамент, без которого нельзя работать с клиентами безопасно.</p>
+            <div class="module-tags">
+              <span>Санитарные нормы</span>
+              <span>Инструменты мастера</span>
+              <span>Техника безопасности</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="module reveal">
+          <div class="module-nail">02</div>
+          <div class="module-body">
+            <h3>Идеальный опил и комби-маникюр</h3>
+            <p>Аппаратный и комбинированный маникюр, работа с кутикулой и птеригием, подбор насадок и скоростей — доводим форму ногтя до идеала.</p>
+            <div class="module-tags">
+              <span>Аппаратный маникюр</span>
+              <span>Комби-техника</span>
+              <span>Работа с кутикулой</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="module reveal">
+          <div class="module-nail">03</div>
+          <div class="module-body">
+            <h3>Покрытие под кутикулу и выравнивание</h3>
+            <p>Гель-лак без затёков и отслоек, архитектура ногтя, выравнивание формы и укрепление — покрытие, которое держится 3–4 недели.</p>
+            <div class="module-tags">
+              <span>Покрытие под кутикулу</span>
+              <span>Архитектура ногтя</span>
+              <span>Укрепление</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="module reveal">
+          <div class="module-nail">04</div>
+          <div class="module-body">
+            <h3>Продвижение и поиск клиентов</h3>
+            <p>Как оформить портфолио, вести соцсети мастера, ценообразование и первые клиенты — превращаем навык в стабильный доход.</p>
+            <div class="module-tags">
+              <span>Личный бренд мастера</span>
+              <span>Соцсети и портфолио</span>
+              <span>Ценообразование</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTHOR -->
+  <section class="author" id="author">
+    <div class="wrap">
+      <div class="author-visual reveal">
+        <span class="monogram">Ж</span>
+        <div class="author-rating">
+          <div class="stars">★★★★★</div>
+          <div class="num">4.8</div>
+          <div class="lbl">рейтинг студии</div>
+        </div>
+      </div>
+
+      <div class="author-content reveal" style="--delay:0.12s">
+        <span class="eyebrow">Об авторе курса</span>
+        <h2>Автор программы — основательница студии «Жар-Птица»</h2>
+        <p>Основательница и ведущий преподаватель студии и учебного центра «Жар-Птица» в Усть-Каменогорске лично разработала программу курса и сама сопровождает учеников на всех этапах обучения — от первого урока до первой оплаченной работы.</p>
+        <p>Онлайн-формат не значит «без внимания»: каждая работа разбирается лично, а в закрытом чате ученики получают обратную связь напрямую от преподавателя студии.</p>
+
+        <div class="author-stats">
+          <div>
+            <b>4.8</b>
+            <span>рейтинг студии</span>
+          </div>
+          <div>
+            <b>4</b>
+            <span>модуля программы</span>
+          </div>
+          <div>
+            <b>∞</b>
+            <span>доступ к урокам</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="divider-strip" aria-hidden="true">
+      <span class="swatch" style="background:#D9A6A0"></span>
+      <span class="swatch" style="background:#C79965"></span>
+      <span class="swatch" style="background:#A65D52"></span>
+      <span class="swatch" style="background:#6C574C"></span>
+      <span class="swatch" style="background:#E8C9C2"></span>
+    </div>
+  </div>
+
+  <!-- WHAT YOU GET -->
+  <section class="get" id="get">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Что вы получите</span>
+        <h2>Не только знания, но и поддержку после курса</h2>
+      </div>
+
+      <div class="get-grid">
+        <div class="get-card reveal">
+          <div class="get-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="5"/><path d="M8.5 13 7 21l5-2.5L17 21l-1.5-8"/></svg>
+          </div>
+          <h3>Официальный сертификат</h3>
+          <p>Сертификат об окончании курса от студии и учебного центра «Жар-Птица», подтверждающий квалификацию мастера маникюра.</p>
+        </div>
+
+        <div class="get-card reveal" style="--delay:0.1s">
+          <div class="get-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18.4 5.6a5.5 5.5 0 0 0-7.8 0L12 7l1.4-1.4a5.5 5.5 0 1 1 7.8 7.8L12 22l-9.2-8.6a5.5 5.5 0 0 1 7.8-7.8"/></svg>
+          </div>
+          <h3>Доступ к урокам навсегда</h3>
+          <p>Видеоуроки, материалы и обновления программы остаются с вами — пересматривайте в удобном темпе и возвращайтесь к нужному модулю.</p>
+        </div>
+
+        <div class="get-card reveal" style="--delay:0.2s">
+          <div class="get-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-4-1L3 20l1.1-4.4A8.5 8.5 0 1 1 21 11.5z"/></svg>
+          </div>
+          <h3>Поддержка в закрытом чате</h3>
+          <p>Личная обратная связь по каждой работе, ответы на вопросы и поддержка преподавателей студии на всём пути обучения.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta" id="cta">
+    <div class="wrap">
+      <div class="cta-box reveal">
+        <span class="eyebrow">Осталось совсем немного</span>
+        <h2>Займите место на курсе и станьте мастером маникюра со стабильным доходом</h2>
+        <p>Напишите нам в WhatsApp — расскажем о ближайшем потоке, стоимости и поможем выбрать подходящий формат обучения.</p>
+        <div class="cta-actions">
+          <a class="btn-whatsapp" href="https://wa.me/77770000000" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.1.2-.2.2-.4.1-.1 0-.3 0-.4-.1-.1-.5-1.3-.7-1.8-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 3.9 3.4.5.2 1 .4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3z"/></svg>
+            Задать вопрос в WhatsApp
+          </a>
+          <a class="btn-ghost" href="#program">Смотреть программу</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-wrap">
+      <div class="logo"><span class="logo-mark"></span> Жар-Птица</div>
+      <div class="footer-links">
+        <a href="#program">Программа</a>
+        <a href="#author">Об авторе</a>
+        <a href="#get">Что вы получите</a>
+        <a href="https://wa.me/77770000000" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer-copy">© 2026 Студия и учебный центр «Жар-Птица», г. Усть-Каменогорск. Все права защищены.</div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){
+      els.forEach(function(el){ el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    els.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
